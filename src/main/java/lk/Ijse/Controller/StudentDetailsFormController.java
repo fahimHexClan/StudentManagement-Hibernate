@@ -38,6 +38,8 @@ public class StudentDetailsFormController {
     private JFXTextField txtName;
 
     private final StudentBo studentBo = new StudentBoImpl();
+    private ObservableList<StudentDto> studentList = FXCollections.observableArrayList();
+
     @FXML
     public void initialize() {
         loadAllStudents();
@@ -46,6 +48,7 @@ public class StudentDetailsFormController {
     private void loadAllStudents() {
         List<StudentDto> studentDtos = studentBo.getAllStudents();
         ObservableList<StudentDto> observableList = FXCollections.observableArrayList(studentDtos);
+        tblStudent.setItems(observableList);
         tblStudent.setItems(observableList);
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colName.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -61,6 +64,7 @@ public class StudentDetailsFormController {
                     deleteButton.setOnAction((ActionEvent event) -> {
                         StudentDto student = getTableView().getItems().get(getIndex());
                         studentBo.deleteStudent(student.getId());
+                        loadAllStudents();
                     });
                 }
 
@@ -85,6 +89,7 @@ public class StudentDetailsFormController {
                         StudentDto student = getTableView().getItems().get(getIndex());
                         try {
                             studentBo.updateStudent(student);
+                            loadAllStudents();
                         } catch (SQLException e) {
                             throw new RuntimeException(e);
                         } catch (ClassNotFoundException e) {
@@ -141,8 +146,8 @@ public class StudentDetailsFormController {
                 boolean isDeleted = studentBo.deleteStudent(id);
                 if (isDeleted) {
                     new Alert(Alert.AlertType.INFORMATION, "Data Deleted Successfully").show();
-                    ClearAllOnAction();
                     loadAllStudents();
+                    ClearAllOnAction();
                 } else {
                     new Alert(Alert.AlertType.INFORMATION, "Data Not Deleted").show();
                 }
@@ -164,8 +169,8 @@ public class StudentDetailsFormController {
             boolean isSuccess = studentBo.updateStudent(studentDto);
             if (isSuccess) {
                 new Alert(Alert.AlertType.INFORMATION, "Data updated").show();
-                ClearAllOnAction();
                 loadAllStudents();
+                ClearAllOnAction();
             } else {
                 new Alert(Alert.AlertType.ERROR, "Data not updated").show();
             }
