@@ -63,7 +63,7 @@ public class StudentDaoImpl implements StudentDao {
             return query.getResultList();
         } catch (Exception e) {
             e.printStackTrace();
-            return new ArrayList<>();
+            return new ArrayList<>();//f
         }
     }
 
