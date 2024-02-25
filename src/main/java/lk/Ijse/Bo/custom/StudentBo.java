@@ -15,4 +15,5 @@ public interface StudentBo {
 
     List<StudentDto> searchStudent(String keyword) throws SQLException, ClassNotFoundException, SystemException;
 
+    List<StudentDto> getAllStudents();
 }

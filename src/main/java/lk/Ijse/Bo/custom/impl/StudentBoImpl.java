@@ -38,5 +38,15 @@ public class StudentBoImpl implements StudentBo {
         }
         return studentDtos;
     }
+    @Override
+    public List<StudentDto> getAllStudents() {
+        List<StudentEntity> studentEntities = studentDao.getAll();
+        List<StudentDto> studentDtos = new ArrayList<>();
+        for (StudentEntity entity : studentEntities) {
+            studentDtos.add(new StudentDto(entity.getId(), entity.getName(), entity.getAddress(), entity.getContactNum()));
+        }
+        return studentDtos;
+    }
+
 
 }

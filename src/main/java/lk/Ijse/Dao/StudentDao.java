@@ -12,4 +12,5 @@ public interface StudentDao {
     boolean update(StudentEntity studentEntity);
     List<StudentEntity> search(String keyword);
 
+    List<StudentEntity> getAll();
 }

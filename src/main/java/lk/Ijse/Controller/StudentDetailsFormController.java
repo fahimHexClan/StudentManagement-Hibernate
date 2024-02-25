@@ -2,12 +2,12 @@ package lk.Ijse.Controller;
 
 import com.jfoenix.controls.JFXTextField;
 import jakarta.transaction.SystemException;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import lk.Ijse.Bo.custom.StudentBo;
 import lk.Ijse.Bo.custom.impl.StudentBoImpl;
 import lk.Ijse.Dto.StudentDto;
@@ -38,6 +38,76 @@ public class StudentDetailsFormController {
     private JFXTextField txtName;
 
     private final StudentBo studentBo = new StudentBoImpl();
+    @FXML
+    public void initialize() {
+        loadAllStudents();
+    }
+
+    private void loadAllStudents() {
+        List<StudentDto> studentDtos = studentBo.getAllStudents();
+        ObservableList<StudentDto> observableList = FXCollections.observableArrayList(studentDtos);
+        tblStudent.setItems(observableList);
+        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
+        colContactNum.setCellValueFactory(new PropertyValueFactory<>("contactNum"));
+
+        // Add delete and update buttons to the table
+        colDelete.setCellFactory(column -> {
+            return new TableCell<StudentDto, Void>() {
+                private final Button deleteButton = new Button("Delete");
+
+                {
+                    deleteButton.setOnAction((ActionEvent event) -> {
+                        StudentDto student = getTableView().getItems().get(getIndex());
+                        studentBo.deleteStudent(student.getId());
+                    });
+                }
+
+                @Override
+                protected void updateItem(Void item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (empty) {
+                        setGraphic(null);
+                    } else {
+                        setGraphic(deleteButton);
+                    }
+                }
+            };
+        });
+
+        colUpdate.setCellFactory(column -> {
+            return new TableCell<StudentDto, Void>() {
+                private final Button updateButton = new Button("Update");
+
+                {
+                    updateButton.setOnAction((ActionEvent event) -> {
+                        StudentDto student = getTableView().getItems().get(getIndex());
+                        try {
+                            studentBo.updateStudent(student);
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        } catch (ClassNotFoundException e) {
+                            throw new RuntimeException(e);
+                        } catch (SystemException e) {
+                            throw new RuntimeException(e);
+                        }
+                    });
+                }
+
+                @Override
+                protected void updateItem(Void item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (empty) {
+                        setGraphic(null);
+                    } else {
+                        setGraphic(updateButton);
+                    }
+                }
+            };
+        });
+
+    }
 
 
     @FXML
@@ -52,6 +122,7 @@ public class StudentDetailsFormController {
             int generatedId = studentDto.getId(); // Get the auto-generated ID
             txtId.setText(String.valueOf(generatedId)); // Display the ID in the UI
             new Alert(Alert.AlertType.INFORMATION, "Data added").show();
+            loadAllStudents();
             ClearAllOnAction();
         } else {
             new Alert(Alert.AlertType.ERROR, "Data not added").show();
@@ -71,6 +142,7 @@ public class StudentDetailsFormController {
                 if (isDeleted) {
                     new Alert(Alert.AlertType.INFORMATION, "Data Deleted Successfully").show();
                     ClearAllOnAction();
+                    loadAllStudents();
                 } else {
                     new Alert(Alert.AlertType.INFORMATION, "Data Not Deleted").show();
                 }
@@ -93,6 +165,7 @@ public class StudentDetailsFormController {
             if (isSuccess) {
                 new Alert(Alert.AlertType.INFORMATION, "Data updated").show();
                 ClearAllOnAction();
+                loadAllStudents();
             } else {
                 new Alert(Alert.AlertType.ERROR, "Data not updated").show();
             }

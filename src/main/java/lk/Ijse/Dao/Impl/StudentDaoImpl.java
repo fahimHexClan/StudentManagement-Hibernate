@@ -63,4 +63,14 @@ public class StudentDaoImpl implements StudentDao {
             return new ArrayList<>();//f
         }
     }
+    public List<StudentEntity> getAll() {
+        try (Session session = FactoryConfiguration.getInstance().getSession()) {
+            Query<StudentEntity> query = session.createQuery("FROM StudentEntity", StudentEntity.class);
+            return query.getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+    }
+
 }
