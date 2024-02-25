@@ -24,7 +24,6 @@ public class StudentDaoImpl implements StudentDao {
             return false;
         }
     }
-
     public boolean delete(Integer id) {
         try (Session session = FactoryConfiguration.getInstance().getSession()) {
             Transaction transaction = session.beginTransaction();
@@ -41,7 +40,6 @@ public class StudentDaoImpl implements StudentDao {
             return false;
         }
     }
-
     public boolean update(StudentEntity studentEntity) {
         try (Session session = FactoryConfiguration.getInstance().getSession()) {
             Transaction transaction = session.beginTransaction();
@@ -53,7 +51,6 @@ public class StudentDaoImpl implements StudentDao {
             return false;
         }
     }
-
     public List<StudentEntity> search(String keyword) {
         try (Session session = FactoryConfiguration.getInstance().getSession()) {
             Query<StudentEntity> query = session.createQuery("FROM StudentEntity WHERE id = :id OR address LIKE :address OR name LIKE :name");
@@ -66,7 +63,4 @@ public class StudentDaoImpl implements StudentDao {
             return new ArrayList<>();//f
         }
     }
-
-
-
 }

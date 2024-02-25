@@ -6,6 +6,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import lk.Ijse.Bo.custom.StudentBo;
 import lk.Ijse.Bo.custom.impl.StudentBoImpl;
 import lk.Ijse.Dto.StudentDto;
@@ -16,6 +18,13 @@ import java.util.Optional;
 
 public class StudentDetailsFormController {
 
+    public TableView tblStudent;
+    public TableColumn colId;
+    public TableColumn colName;
+    public TableColumn colAddress;
+    public TableColumn colContactNum;
+    public TableColumn colDelete;
+    public TableColumn colUpdate;
     @FXML
     private JFXTextField txtAddress;
 

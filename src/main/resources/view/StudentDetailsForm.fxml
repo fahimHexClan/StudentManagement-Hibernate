@@ -3,22 +3,34 @@
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="286.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.Ijse.Controller.StudentDetailsFormController">
+<AnchorPane prefHeight="458.0" prefWidth="648.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.Ijse.Controller.StudentDetailsFormController">
    <children>
-      <JFXTextField fx:id="txtName" layoutX="42.0" layoutY="132.0" prefHeight="25.0" prefWidth="166.0" />
-      <JFXTextField fx:id="txtAddress" layoutX="42.0" layoutY="183.0" prefHeight="25.0" prefWidth="179.0" />
+      <JFXTextField fx:id="txtName" layoutX="262.0" layoutY="72.0" prefHeight="25.0" prefWidth="166.0" />
+      <JFXTextField fx:id="txtAddress" layoutX="42.0" layoutY="133.0" prefHeight="25.0" prefWidth="179.0" />
       <JFXTextField fx:id="txtId" layoutX="42.0" layoutY="71.0" prefHeight="25.0" prefWidth="173.0" />
-      <JFXTextField fx:id="txtContactNumber" layoutX="43.0" layoutY="241.0" prefHeight="25.0" prefWidth="179.0" />
-      <Label layoutX="42.0" layoutY="103.0" text="Name" />
-      <Label layoutX="42.0" layoutY="165.0" text="Address" />
+      <JFXTextField fx:id="txtContactNumber" layoutX="266.0" layoutY="133.0" prefHeight="25.0" prefWidth="166.0" />
+      <Label layoutX="262.0" layoutY="53.0" text="Name" />
+      <Label layoutX="42.0" layoutY="115.0" text="Address" />
       <Label layoutX="46.0" layoutY="54.0" text="Id" />
-      <Label layoutX="41.0" layoutY="221.0" text="Contact number" />
-      <Button layoutX="37.0" layoutY="296.0" mnemonicParsing="false" onAction="#SaveOnAction" style="-fx-background-color: Lightblue;" text="save" />
-      <Button layoutX="103.0" layoutY="296.0" mnemonicParsing="false" onAction="#DeleteOnAction" style="-fx-background-color: Lightblue;" text="delete" />
-      <Button layoutX="178.0" layoutY="297.0" mnemonicParsing="false" onAction="#UpdateOnAction" style="-fx-background-color: Lightblue;" text="Update" />
-      <Button layoutX="39.0" layoutY="340.0" mnemonicParsing="false" onAction="#ClearAllOnAction" prefHeight="25.0" prefWidth="207.0" style="-fx-background-color: lightgreen;" text="ClearAll" />
-      <Button layoutX="192.0" layoutY="58.0" mnemonicParsing="false" onAction="#SearchOnAction" style="-fx-background-color: Lightblue;" text="Search" />
+      <Label layoutX="264.0" layoutY="113.0" text="Contact number" />
+      <Button layoutX="571.0" layoutY="102.0" mnemonicParsing="false" onAction="#SaveOnAction" prefHeight="25.0" prefWidth="64.0" style="-fx-background-color: Lightblue;" text="save" />
+      <Button layoutX="502.0" layoutY="66.0" mnemonicParsing="false" onAction="#DeleteOnAction" style="-fx-background-color: Lightblue;" text="delete" />
+      <Button layoutX="569.0" layoutY="67.0" mnemonicParsing="false" onAction="#UpdateOnAction" style="-fx-background-color: Lightblue;" text="Update" />
+      <Button layoutX="501.0" layoutY="28.0" mnemonicParsing="false" onAction="#ClearAllOnAction" prefHeight="25.0" prefWidth="131.0" style="-fx-background-color: lightgreen;" text="ClearAll" />
+      <Button layoutX="503.0" layoutY="103.0" mnemonicParsing="false" onAction="#SearchOnAction" style="-fx-background-color: Lightblue;" text="Search" />
+      <TableView fx:id="tblStudent" layoutX="-2.0" layoutY="171.0" prefHeight="282.0" prefWidth="648.0">
+        <columns>
+          <TableColumn fx:id="colId" prefWidth="75.0" text="ID" />
+          <TableColumn fx:id="colName" prefWidth="125.00051879882812" text="NAME" />
+            <TableColumn fx:id="colAddress" prefWidth="141.42918395996094" text="ADDRESS" />
+            <TableColumn fx:id="colContactNum" prefWidth="142.14349365234375" text="CONTACT NUMBER" />
+            <TableColumn fx:id="colDelete" prefWidth="76.42892456054688" text="delete" />
+            <TableColumn fx:id="colUpdate" prefWidth="86.42893142375897" text="update" />
+        </columns>
+      </TableView>
    </children>
 </AnchorPane>
